@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import gsap from 'gsap'
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -52,10 +53,15 @@ window.addEventListener('keydown', (e) => {
     }
 })
 
+//cloak
+const clock = new THREE.Clock()
+gsap.to(mesh.position, { duration:1, delay: 1, x:2 })
+
 //animation 
 const tick = () => {
-    console.log('rerender')
-    mesh.rotation.y += 0.01
+    const elapsedTime = clock.getElapsedTime()
+
+    mesh.rotation.y = Math.sin(elapsedTime)
     renderer.render(scene, camera)
     window.requestAnimationFrame(tick)
 
